@@ -1,5 +1,5 @@
 /node_modules
 
-/config
+/config/config.env
 
-/_data
+/_datadebug.log
