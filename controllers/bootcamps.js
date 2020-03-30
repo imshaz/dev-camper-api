@@ -1,5 +1,5 @@
 const Bootcamp = require('../models/Bootcamp')
-
+const ErrorReponse = require('../utils/errorResponse')
 // @desc    Get all bootcamps
 // @route   GET /api/v1/bootcamps
 // @access  public
@@ -22,12 +22,12 @@ exports.getBootcamp = async (req, res, next) => {
     try {
         const bootcamp = await Bootcamp.findOne({ _id: req.params.id })
         if(!bootcamp){
-            throw new Error('BROKEN')
+           return next(new ErrorReponse(`Bootcamp not found with id of ${req.params.id}`, 404))
         }
         res.status(200).json({ success: true, data: bootcamp })
     } catch (error) {
-        // console.log('eeeee', error)
-        next(error)
+      
+        next(new ErrorReponse(`Somthing went wrong`, 500))
         // res.status(400).json({ success: false })
     }
 }
